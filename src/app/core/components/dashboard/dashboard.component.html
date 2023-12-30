@@ -1,0 +1,144 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="d-flex align-items-center">
+      <h2 style="margin-bottom: 0">Tareas</h2>
+      <div style="margin-left: 100px">
+        <p-button
+          styleClass="p-button-sm"
+          icon="pi pi-plus"
+          [routerLink]="['/create']"
+        ></p-button>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap justify-content-center gap-3 mt-4">
+    <span class="p-input-icon-right">
+      <input
+        type="text"
+        pInputText
+        placeholder="Búsqueda"
+        [(ngModel)]="searchText"
+        (input)="search()"
+      />
+      <i class="pi pi-search"></i>
+    </span>
+  </div>
+  <div class="mt-5">
+    <h4>Filtros</h4>
+    <p-selectButton
+      (onChange)="filtrar()"
+      [(ngModel)]="filtroCompletado"
+      [options]="stateOptions"
+      optionLabel="label"
+      optionValue="value"
+      class="mt-5"
+    ></p-selectButton>
+  </div>
+  <div class="mt-5 col-md-12">
+    <div
+      class="row"
+      style="display: flex; flex-wrap: wrap; justify-content: space-between"
+    >
+      <div class="tarjetas" *ngFor="let item of tasks; let i = index">
+        <p-card>
+          <div class="row" style="display: flex; justify-content: space-around">
+            <div class="col" style="display: flex; flex-direction: row">
+              <img src="../../../../assets/edit_calendar.svg" />
+              <p class="pFecha">
+                {{ fechaFormateada(item.last_update_date) }}
+              </p>
+              <p class="pHora">
+                {{ horaFormateada(item.last_update_date) }}
+              </p>
+            </div>
+            <div
+              class="col"
+              style="
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                margin-right: 15px;
+              "
+            >
+              <p-checkbox
+                [ngModel]="checkedArray[i]"
+                (ngModelChange)="onCheckboxChange(i)"
+                [binary]="true"
+                inputId="binary"
+                [disabled]="this.filtroCompletado === true"
+              ></p-checkbox>
+            </div>
+          </div>
+          <div class="row" style="display: flex; justify-content: space-around">
+            <div class="col" style="display: flex; flex-direction: row">
+              <img src="../../../../assets/gpp_maybe.svg" />
+              <p class="pPrioridad">Prioridad: {{ item.priority }}</p>
+            </div>
+          </div>
+          <div class="row" style="display: flex; justify-content: space-around">
+            <div class="col" style="display: flex; flex-direction: row">
+              <img src="../../../../assets/checklist_rtl.svg" />
+              <p class="pCategoria">Categoría: {{ item.category }}</p>
+            </div>
+          </div>
+
+          <div class="row" style="display: flex; flex-direction: row">
+            <span style="font-weight: bold; margin-left: 15px">{{
+              item.title
+            }}</span>
+          </div>
+          <div class="row">
+            <p class="pDescripcion">{{ item.description }}</p>
+          </div>
+          <div
+            class="cFooter"
+            style="display: flex; justify-content: space-around"
+          >
+            <div class="col" style="display: flex; flex-direction: row">
+              <p-button
+                icon="pi pi-pencil"
+                styleClass="p-button-help p-button-text"
+                [routerLink]="['/update', item.id]"
+              ></p-button>
+              <p-button
+                icon="pi pi-trash"
+                styleClass="p-button-help p-button-text"
+                (click)="deleteTarea(item.id)"
+              ></p-button>
+            </div>
+            <div
+              class="col"
+              style="
+                display: flex;
+                justify-content: end;
+                align-items: center;
+                margin-right: 15px;
+              "
+            >
+              <p-button
+                icon="pi pi-arrow-right"
+                styleClass="p-button-help p-button-text"
+                [disabled]="tareaSeleccionadaIndex !== i"
+                (click)="onSubmit()"
+              ></p-button>
+            </div>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <p-button
+      class="mt-5 mb-5"
+      (click)="cargarMasTareas()"
+      [style]="{
+        width: '210px',
+        'background-color': '#5230FF',
+        color: '#ffffff'
+      }"
+      label="Mas Tareas"
+    ></p-button>
+  </div>
+</div>

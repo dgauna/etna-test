@@ -1,0 +1,173 @@
+<div
+  class="d-flex justify-content-center align-items-center vh-100"
+  style="flex-direction: column"
+>
+  <div class="row">
+    <img src="../../../../assets/Capa_1.svg" alt="" srcset="" />
+  </div>
+  <div class="row text-center mt-4">
+    <h5>Crear Cuenta</h5>
+  </div>
+  <form
+    [formGroup]="registerForm"
+    style="
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <div class="row text-center mt-4" style="width: 300px">
+      <input
+        type="text"
+        pInputText
+        formControlName="nombre"
+        placeholder="Nombre"
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('nombre')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.registerForm.get('nombre')?.hasError(val.type) &&
+                this.registerForm.get('nombre')?.dirty) ||
+              this.registerForm.get('nombre')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4" style="width: 300px">
+      <input
+        type="text"
+        pInputText
+        formControlName="apellido"
+        placeholder="Apellido"
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('apellido')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.registerForm.get('apellido')?.hasError(val.type) &&
+                this.registerForm.get('apellido')?.dirty) ||
+              this.registerForm.get('apellido')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4" style="width: 300px">
+      <input
+        type="text"
+        pInputText
+        formControlName="email"
+        placeholder="Email"
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('email')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.registerForm.get('email')?.hasError(val.type) &&
+                this.registerForm.get('email')?.dirty) ||
+              this.registerForm.get('email')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4" style="width: 320px">
+      <span class="p-input-icon-right" (click)="togglePasswordVisibility(1)">
+        <i class="pi pi-eye" style="margin-right: 25px"></i>
+        <input
+          type="password"
+          pInputText
+          formControlName="password"
+          placeholder="Contraseña"
+          style="width: 300px"
+          [type]="showPassword ? 'password' : 'text'"
+        />
+      </span>
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('password')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.registerForm.get('password')?.hasError(val.type) &&
+                this.registerForm.get('password')?.dirty) ||
+              this.registerForm.get('password')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4" style="width: 320px">
+      <span class="p-input-icon-right" (click)="togglePasswordVisibility(2)">
+        <i class="pi pi-eye" style="margin-right: 25px"></i>
+        <input
+          type="password"
+          pInputText
+          formControlName="confirmPassword"
+          placeholder="Confirmar Contraseña"
+          style="width: 300px"
+          [type]="showPasswordConfirm ? 'password' : 'text'"
+        />
+      </span>
+      <div class="validation-error mt-1">
+        <ng-container
+          *ngFor="let val of getValidationMessage('confirmPassword')"
+        >
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.registerForm.get('confirmPassword')?.hasError(val.type) &&
+                this.registerForm.get('confirmPassword')?.dirty) ||
+              this.registerForm.get('confirmPassword')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="validation-error">
+      <ng-container>
+        <div class="text-center text-danger" *ngIf="this.showError">
+          <span>Las contraseñas no coinciden</span>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+  <div class="row text-center mt-4">
+    <p-button
+      [style]="{
+        width: '300px',
+        'background-color': '#5230FF',
+        color: '#ffffff'
+      }"
+      (click)="onSubmit()"
+      label="Crear Usuario"
+    ></p-button>
+  </div>
+  <div class="row text-center mt-4">
+    <p-button
+      [style]="{
+        width: '300px',
+        border: '2px solid #5230FF',
+        'background-color': 'transparent',
+        color: '#5230FF'
+      }"
+      label="Volver"
+      [routerLink]="['/']"
+    ></p-button>
+  </div>
+</div>

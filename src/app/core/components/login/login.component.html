@@ -1,0 +1,88 @@
+<div
+  class="d-flex justify-content-center align-items-center vh-100"
+  style="flex-direction: column"
+>
+  <div class="row">
+    <img src="../../../../assets/Capa_1.svg" alt="" srcset="" />
+  </div>
+  <div class="row text-center mt-4">
+    <h5>¡Bienvenido!</h5>
+  </div>
+  <form
+    [formGroup]="loginForm"
+    style="
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <div class="row text-center mt-4" style="width: 214px">
+      <input
+        type="text"
+        pInputText
+        placeholder="Email"
+        formControlName="email"
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('email')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.loginForm.get('email')?.hasError(val.type) &&
+                this.loginForm.get('email')?.dirty) ||
+              this.loginForm.get('email')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4" style="width: 214px">
+      <input
+        type="password"
+        pInputText
+        placeholder="Contraseña"
+        formControlName="password"
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('password')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.loginForm.get('password')?.hasError(val.type) &&
+                this.loginForm.get('password')?.dirty) ||
+              this.loginForm.get('password')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row text-center mt-4">
+      <p-button
+        [style]="{
+          width: '210px',
+          'background-color': '#5230FF',
+          color: '#ffffff'
+        }"
+        label="Ingresar"
+        (click)="onSubmit()"
+      ></p-button>
+    </div>
+    <div class="row text-center mt-4">
+      <p-button
+        [style]="{
+          width: '210px',
+          border: '2px solid #5230FF',
+          'background-color': 'transparent',
+          color: '#5230FF'
+        }"
+        label="Crear Usuario"
+        [routerLink]="['/register']"
+      ></p-button>
+    </div>
+  </form>
+</div>

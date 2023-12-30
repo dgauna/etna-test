@@ -1,0 +1,24 @@
+.edit {
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 767px) {
+    .row {
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    input,
+    p-dropdown {
+        width: 100%; 
+    }
+
+    
+    textarea {
+        width: 214px;
+    }
+    .edit {
+        margin-left: 5px; 
+    }
+
+}

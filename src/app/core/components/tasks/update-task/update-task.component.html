@@ -1,0 +1,154 @@
+<div
+  class="d-flex justify-content-center align-items-center"
+  style="flex-direction: column"
+>
+  <div class="row mt-3 text-center" style="display: flex; flex-direction: row">
+    <p-button
+      class="mb-3"
+      icon="pi pi-arrow-left"
+      styleClass="p-button-rounded p-button-help"
+      (click)="goBack()"
+    ></p-button>
+    <h3>Editar Tarea</h3>
+  </div>
+  <form
+    [formGroup]="taskForm"
+    style="
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <div class="row mt-3" style="width: 214px">
+      <input
+        type="text"
+        pInputText
+        formControlName="tarea"
+        placeholder="Tarea"
+        required
+      />
+      <div class="validation-error mt-1">
+        <ng-container *ngFor="let val of getValidationMessage('tarea')">
+          <div
+            class="text-danger"
+            *ngIf="
+              (this.taskForm.get('tarea')?.hasError(val.type) &&
+                this.taskForm.get('tarea')?.dirty) ||
+              this.taskForm.get('tarea')?.touched
+            "
+          >
+            {{ val.message }}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row mt-3 mb-3" style="width: 214px">
+      <input
+        type="number"
+        max="5"
+        min="1"
+        pInputText
+        placeholder="Prioridad"
+        formControlName="prioridad"
+        required
+      />
+      <ng-container *ngFor="let val of getValidationMessage('prioridad')">
+        <div
+          class="text-danger"
+          *ngIf="
+            (this.taskForm.get('prioridad')?.hasError(val.type) &&
+              this.taskForm.get('prioridad')?.dirty) ||
+            this.taskForm.get('prioridad')?.touched
+          "
+        >
+          {{ val.message }}
+        </div>
+      </ng-container>
+    </div>
+    <div class="row mt-3 mb-3">
+      <span class="p-input-icon-right">
+        <input
+          type="text"
+          pInputText
+          [value]="this.categoriaNombre"
+          style="width: 214px; margin-left: 50px"
+          readonly
+        />
+        <p-button
+          class="edit"
+          icon="pi pi-pencil"
+          styleClass="p-button-rounded p-button-help"
+          (click)="editCategoria()"
+        ></p-button>
+      </span>
+    </div>
+    <div
+      class="row mt-3 mb-3"
+      style="width: 214px; margin-right: 20px"
+      *ngIf="verCategoria"
+    >
+      <p-dropdown
+        [options]="categoriesList"
+        optionLabel="name"
+        placeholder="Seleccione Categoria"
+        formControlName="categoria"
+        (onChange)="selectCategoria($event)"
+      ></p-dropdown>
+      <ng-container
+        *ngFor="let val of getValidationMessage('categoria')"
+        class="validation-error mt-1"
+      >
+        <div
+          class="text-danger"
+          *ngIf="
+            (this.taskForm.get('categoria')?.hasError(val.type) &&
+              this.taskForm.get('categoria')?.dirty) ||
+            this.taskForm.get('categoria')?.touched
+          "
+        >
+          {{ val.message }}
+        </div>
+      </ng-container>
+    </div>
+    <div class="row mt-3 mb-3" style="width: 214px; margin-right: 20px">
+      <span class="p-float-label">
+        <textarea
+          rows="4"
+          cols="24"
+          pInputTextarea
+          formControlName="descripcion"
+        ></textarea>
+        <label for="float-input" style="width: 12%; padding-left: 10px" required
+          >Descripción</label
+        >
+      </span>
+      <ng-container
+        *ngFor="let val of getValidationMessage('descripcion')"
+        class="validation-error mt-1"
+      >
+        <div
+          class="text-danger"
+          *ngIf="
+            (this.taskForm.get('descripcion')?.hasError(val.type) &&
+              this.taskForm.get('descripcion')?.dirty) ||
+            this.taskForm.get('descripcion')?.touched
+          "
+        >
+          {{ val.message }}
+        </div>
+      </ng-container>
+    </div>
+    <div class="row mt-3 mb-5">
+      <p-button
+        [style]="{
+          width: '214px',
+          'background-color': '#5230FF',
+          color: '#ffffff'
+        }"
+        label="Guardar Tarea"
+        (click)="onSubmit()"
+      ></p-button>
+    </div>
+  </form>
+</div>
